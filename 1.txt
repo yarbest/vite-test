@@ -1,0 +1,17 @@
+npm create vite
+(choose React, TS+SWC)
+
+cd vite-test-project
+npm i (install modules)
+npm run dev
+
+--------
+if ts file show error:
+npm install --save-dev @types/estree @types/json-schema @types/prop-types
+
+needs to install this, so if trying to import non existing file, it would show error in IDE
+eslint-plugin-import
+add it to eslint.config.js
+
+supports css modules out of box
+and @import in style files
