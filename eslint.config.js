@@ -19,6 +19,14 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       import: importPlugin,
     },
+    settings: {
+      'import/resolver': {
+        alias: {
+          map: [['', './public']],
+          // extensions: [],
+        },
+      },
+    },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
