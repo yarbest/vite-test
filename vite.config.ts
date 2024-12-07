@@ -10,7 +10,7 @@ export default defineConfig({
       '@containers': path.resolve(__dirname, 'src/containers'),
     },
   },
-  base: '/', // adds to the url: http://localhost:5173/vite-test
+  base: '/vite-test', // adds to the url: http://localhost:5173/vite-test
   // build: {
   //   outDir: 'public',
   // },
