@@ -55,6 +55,13 @@ so it doesn't give error, inside import/resolver it needs:
 node: {
   extensions: ['.js', '.jsx', '.ts', '.tsx'],
 },
+!!BUT also update vite.config, to have alias:
+  resolve: {
+    alias: {
+      '@containers': path.resolve(__dirname, 'src/containers'),
+    },
+  },
+  for that install path, @types/node
 ==========
 
 supports css modules out of box
