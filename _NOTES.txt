@@ -41,7 +41,7 @@ Change config:
 
 Restart IDE, so it just changes / to ./public for selected extensions
 !! This would also allow to use alias like @containers so import doesn't have long name
-['@containers', './src/containers'],
+['@containers', 'src/containers'],
 !!!!!|BUT it would just stop linter from complaining, the real alias, that allows to import 
 is located in tsconfig.json (jsconfig.json)
 

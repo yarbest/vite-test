@@ -26,16 +26,15 @@ export default tseslint.config(
       import: importPlugin,
     },
     settings: {
-      react: { version: '18.3' },
+      react: { version: '18.3' }, // or 'detect'
       'import/resolver': {
-        // doesn't require such extensions at the end of import
         node: {
-          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          extensions: ['.js', '.jsx', '.ts', '.tsx'], // doesn't require such extensions at the end of import
         },
         alias: {
-          // map: [['', './public']],
+          map: [['', './public']], // allows to import from public folder: import viteLogo from '/vite.svg';
           // can be empty
-          // extensions: ['.js', '.jsx', '.ts', '.tsx', '.svg'],
+          // extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
       },
     },
