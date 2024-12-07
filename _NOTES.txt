@@ -21,6 +21,9 @@ eslint-plugin-import
 add it to eslint.config.js:
 rules: 'import/no-unresolved': 'error',
 plugins: import: importPlugin,
+syntax of rules:
+'rule_name': 0=(off) 1=(warn) 2=(error)
+'rule_name': ['error', {optionForSpecificRule: true}]
 
 But importing files from public directory like this, will fail because of this plugin:
 import viteLogo from '/vite.svg';

@@ -8,6 +8,7 @@ import './App.scss';
 function App() {
   const [count, setCount] = useState(0);
   // a();
+  const a = 1;
   return (
     <>
       <div>
