@@ -32,9 +32,11 @@ export default tseslint.config(
           extensions: ['.js', '.jsx', '.ts', '.tsx'], // doesn't require such extensions at the end of import
         },
         alias: {
-          map: [['', './public']], // allows to import from public folder: import viteLogo from '/vite.svg';
-          // can be empty
-          // extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          map: [
+            ['', './public'], // allows to import from public folder: import viteLogo from '/vite.svg';
+            ['@containers', './src/containers'], // so it doesn't give error when using alias described in tsconfig.json
+          ],
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
       },
     },

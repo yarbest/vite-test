@@ -39,11 +39,15 @@ Change config:
       },
     }, 
 
-Restart IDE, so it just changes / to ./public for selected extensions
+Restart IDE, so it just changes / to ./public for selected extensions (or restart eslint server, or use extension for restarting)
 !! This would also allow to use alias like @containers so import doesn't have long name
 ['@containers', 'src/containers'],
 !!!!!|BUT it would just stop linter from complaining, the real alias, that allows to import 
 is located in tsconfig.json (jsconfig.json)
+"baseUrl": ".",
+"paths": {
+  "@containers/*": ["src/containers/*"]
+},
 
 In order to remove extensions at the end of import 
 import { func } from './containers/a';
