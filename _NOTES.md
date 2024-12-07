@@ -88,6 +88,40 @@ if these files has the same key, .env has lower priority
 
 =========
 
+deploy to github pages:
+choose guthub actions
+then static html
+there is a yaml file (.yml)
+add new steps there, after first step (name: Checkout)
+
+- name: Setup Node
+  uses: actions/setup-node@v3
+  with:
+  node-version: 18
+  cache: 'npm'
+- name: Install Dependencies
+  run: npm install
+- name: Build
+  run: npm run build
+
+and there is also:
+with:
+path: '.'
+
+since script build creates folder with name dist, it needs different path
+path: './dist'
+
+this all will create a commit, and new folder .github/workflows/static.yml
+and will start github action, like it was with playwrigth tests
+every commit starts this workflow: set up node.js, npm install, npm build
+
+!!!in vite.config it required to change base (url), because on github pages
+the project is deployed at https://yarbest.github.io/vite-test/
+vite-test is the name of the repo, but if in vite.config if says by default:
+base: '/'
+then url above is not correct, it would expect just: https://yarbest.github.io/
+========
+
 supports css modules out of box
 and @import in style files
 !!!for scss install: sass
