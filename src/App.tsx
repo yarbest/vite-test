@@ -7,12 +7,13 @@ import './App.css';
 import { func } from '@containers/a';
 
 // import { a } from './a.ts';
+console.log(import.meta.env);
 
 function App() {
   const [count, setCount] = useState(0);
   func();
   // a();
-  const a = 1;
+  // const a = 1;
   return (
     <>
       <div>
