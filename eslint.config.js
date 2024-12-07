@@ -25,13 +25,27 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       import: importPlugin,
     },
-    settings: { react: { version: '18.3' } },
+    settings: {
+      react: { version: '18.3' },
+      'import/resolver': {
+        // doesn't require such extensions at the end of import
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        },
+        alias: {
+          // map: [['', './public']],
+          // can be empty
+          // extensions: ['.js', '.jsx', '.ts', '.tsx', '.svg'],
+        },
+      },
+    },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       'import/no-unresolved': 'error',
+      indent: ['error', 2],
     },
   }
 );

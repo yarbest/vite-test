@@ -44,6 +44,13 @@ Restart IDE, so it just changes / to ./public for selected extensions
 ['@containers', './src/containers'],
 !!!!!|BUT it would just stop linter from complaining, the real alias, that allows to import 
 is located in tsconfig.json (jsconfig.json)
+
+In order to remove extensions at the end of import 
+import { func } from './containers/a';
+so it doesn't give error, inside import/resolver it needs:
+node: {
+  extensions: ['.js', '.jsx', '.ts', '.tsx'],
+},
 ==========
 
 supports css modules out of box

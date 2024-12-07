@@ -2,11 +2,13 @@ import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.scss';
+import { func } from './containers/a';
 
 // import { a } from './a.ts';
 
 function App() {
   const [count, setCount] = useState(0);
+  func();
   // a();
   const a = 1;
   return (
