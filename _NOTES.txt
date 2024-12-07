@@ -1,0 +1,48 @@
+npm create vite
+(choose React, TS+SWC)
+
+cd vite-test-project
+npm i (install modules)
+npm run dev
+
+--------
+if ts file shows error:
+npm install --save-dev @types/estree @types/json-schema @types/prop-types
+!!!!or just reopen window, it might go
+
+Do recommended eslint settings from README:
+adding languageOptions, replacing tseslint.configs.recommended, add plugin
+eslint-plugin-react and its rules 
+
+But even after this setting, importing non existing images, or other non-ts file
+will NOT show error, untill running project
+Needs to install this, so if trying to import non existing file, it would show error in IDE
+eslint-plugin-import
+add it to eslint.config.js:
+rules: 'import/no-unresolved': 'error',
+plugins: import: importPlugin,
+
+But importing files from public directory like this, will fail because of this plugin:
+import viteLogo from '/vite.svg';
+It needs package: eslint-import-resolver-alias
+Change config:
+   settings: {
+      'import/resolver': {
+        alias: {
+          map: [['', './public']],
+          // can be empty
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.svg'],
+        },
+      },
+    }, 
+
+Restart IDE, so it just changes / to ./public for selected extensions
+!! This would also allow to use alias like @containers so import doesn't have long name
+['@containers', './src/containers'],
+!!!!!|BUT it would just stop linter from complaining, the real alias, that allows to import 
+is located in tsconfig.json (jsconfig.json)
+==========
+
+supports css modules out of box
+and @import in style files
+!!!for scss install: sass
