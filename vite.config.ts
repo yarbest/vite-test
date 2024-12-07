@@ -11,6 +11,7 @@ export default defineConfig({
     },
   },
   base: '/vite-test', // adds to the url: http://localhost:5173/vite-test
+
   // build: {
   //   outDir: 'public',
   // },
