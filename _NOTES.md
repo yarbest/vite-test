@@ -127,3 +127,7 @@ then url above is not correct, it would expect just: https://yarbest.github.io/
 supports css modules out of box
 and @import in style files
 !!!for scss install: sass
+
+in order to generate types for .module.scss, so when using in component
+styles. - it would suggest class names
+install typed-scss-modules package
