@@ -137,9 +137,34 @@ vite-plugin-sass-dts it will do it without running a separate script
 ========
 
 tests:
+https://codermo.medium.com/setting-up-a-react-app-with-vite-typescript-jest-and-react-testing-library-e001ddce4f53
+
 install:
 npm install --save-dev jest @types/jest ts-jest @testing-library/react @testing-library/jest-dom
 
 add scripts:
 "test": "jest",
 "test:watch": "jest --watch"
+
+this will not work at first, it will complain, that there is no babel
+
+install: npm install --save-dev ts-node jest-environment-jsdom
+
+add jest.config.ts with:
+
+export default {
+preset: 'ts-jest',
+testEnvironment: 'jest-environment-jsdom',
+transform: {
+'^.+\\.tsx?$': 'ts-jest',
+    // process `*.tsx` files with `ts-jest`
+  },
+  moduleNameMapper: {
+    '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/** mocks **/fileMock.js',
+},
+};
+
+add setupTests.ts with:
+import '@testing-library/jest-dom';
+
+change tsconfig: "include": ["src", "jest.config.ts", "setupTests.ts"] cause extension is .ts and it looks for ts files only in src
