@@ -2,4 +2,5 @@
 
 export function func() {
   console.log('func');
+  return 1;
 }

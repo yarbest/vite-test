@@ -133,3 +133,13 @@ styles. - it would suggest class names
 install typed-scss-modules package
 !!!!or a better version, install plugin for vite
 vite-plugin-sass-dts it will do it without running a separate script
+
+========
+
+tests:
+install:
+npm install --save-dev jest @types/jest ts-jest @testing-library/react @testing-library/jest-dom
+
+add scripts:
+"test": "jest",
+"test:watch": "jest --watch"
