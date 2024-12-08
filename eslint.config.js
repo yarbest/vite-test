@@ -6,10 +6,18 @@ import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 import importPlugin from 'eslint-plugin-import';
 
+import stylistic from '@stylistic/eslint-plugin'
+
+
+
 export default tseslint.config(
   { ignores: ['dist'] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommendedTypeChecked, ...tseslint.configs.stylisticTypeChecked],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommendedTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
+    ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -24,6 +32,7 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       import: importPlugin,
+      '@stylistic': stylistic,
     },
     settings: {
       react: { version: '18.3' }, // or 'detect'
@@ -46,9 +55,8 @@ export default tseslint.config(
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       'import/no-unresolved': 'error',
-      indent: ['error', 2],
-      'arrow-spacing': ['error', { 'before': true, 'after': true }],
-      'react/jsx-equals-spacing': ['error', 'never'],
+
+      ...stylistic.configs['recommended-extends'].rules,
     },
   }
 );

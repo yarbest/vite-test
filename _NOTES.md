@@ -67,6 +67,12 @@ alias: {
 },
 for that install path, @types/node
 
+
+!!!! install @stylistic/eslint-plugin which hass all important rules for JS/TS/JSX
+import stylistic from '@stylistic/eslint-plugin'
+to plugins: '@stylistic': stylistic,
+to rules: ...stylistic.configs['recommended-extends'].rules,
+
 ==========
 
 getting env, regularly it's process.env.MY*ENV
