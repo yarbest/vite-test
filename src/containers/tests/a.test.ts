@@ -1,4 +1,4 @@
-import { func } from './a';
+import { func } from '@containers/a';
 
 it('returns 1', () => {
   expect(func()).toBe(1);

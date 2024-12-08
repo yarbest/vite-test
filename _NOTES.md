@@ -170,6 +170,46 @@ import '@testing-library/jest-dom';
 
 for static files (images etc) it needs mock, create file that is described in moduleNameMapper above with content:
 export default 'test-file-stub';
-and same for styles: export default {};
+--and same for styles: export default {};
+--and for using alias import in tests, also add: '^@containers/(.\*)$': '<rootDir>/src/containers/$1',
 
 change tsconfig: "include": ["src", "jest.config.ts", "setupTests.ts"] cause extension is .ts and it looks for ts files only in src
+
+==========
+
+!!!!! Eventually it will not work for integration test, cause Jest doesn't use ESMdules, like Vite and will throw error: but '--jsx' is not set.
+SO USE VITEST
+
+https://codingpr.com/test-your-react-app-with-vitest-and-react-testing-library/
+there is also tests for router, context, user events
+
+npm install -D vitest happy-dom @testing-library/react
+
+so testEnvironment will be happy-dom, instead of jest-environment-jsdom like above
+
+add to vite.config:
+test: {
+globals: true,
+environment: 'happy-dom'
+},
+for correct type suggestions in this test property, use "as ViteUserConfig['test']" from vitest/config
+
+change scripts in package.json
+"test": "vitest",
+"coverage": "vitest run --coverage"
+
+install Vitest extension
+
+also can use @testing-library/jest-dom and its functions like:
+expect(element).toHaveTextContent(/react/i)
+toBeInTheDocument
+full list: https://www.npmjs.com/package/@testing-library/jest-dom
+
+--in order not to import it in every file:
+create setupTest.ts with:
+import '@testing-library/jest-dom';
+
+-- in vite.config add:
+setupFiles: ['src/setupTest.ts'] in property "test"
+
+So jest.config is not needed anymore
