@@ -71,7 +71,7 @@ for that install path, @types/node
 
 getting env, regularly it's process.env.MY*ENV
 in CRA, it has to have prefix REACT_APP*
-in vite, it's VITE\_
+in vite, it's VITE\_ (can be changed in config, property - envPrefix)
 but receiving is different - import.meta.env.VITE_TEST
 it also has such variables as: DEV: true, PROD: false, SSR: false
 PROD: true, when using preview, it runs server in PROD mode
@@ -85,6 +85,8 @@ so .local doesn't get to git
 .production is not accessible in dev mode
 
 if these files has the same key, .env has lower priority
+
+to get env in vite.config - use loadEnv
 
 =========
 
