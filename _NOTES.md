@@ -160,11 +160,16 @@ transform: {
     // process `*.tsx` files with `ts-jest`
   },
   moduleNameMapper: {
-    '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/** mocks **/fileMock.js',
+    '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/**mocks**/fileMock.js',
+'\\.(css|less)$': '<rootDir>/**mocks**/styleMock.js',
 },
 };
 
 add setupTests.ts with:
 import '@testing-library/jest-dom';
+
+for static files (images etc) it needs mock, create file that is described in moduleNameMapper above with content:
+export default 'test-file-stub';
+and same for styles: export default {};
 
 change tsconfig: "include": ["src", "jest.config.ts", "setupTests.ts"] cause extension is .ts and it looks for ts files only in src
