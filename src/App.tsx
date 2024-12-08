@@ -1,21 +1,18 @@
 import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
-// import './App.scss';
 import styles from './App.module.scss';
+import TodoList from '@containers/TodoList';
 
-import { func } from '@containers/a';
+// import { func } from '@containers/a';
 
-// import { a } from './a.ts';
 console.log(import.meta.env);
 
 function App() {
   const [count, setCount] = useState(0);
-  func();
-  // a();
-  // const a = 1;
   return (
     <>
+      <TodoList />
       <div>
         <a href="https://vite.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className={styles.logo} alt="Vite logo" />
