@@ -47,6 +47,8 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       'import/no-unresolved': 'error',
       indent: ['error', 2],
+      'arrow-spacing': ['error', { 'before': true, 'after': true }],
+      'react/jsx-equals-spacing': ['error', 'never'],
     },
   }
 );
