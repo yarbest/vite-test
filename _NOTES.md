@@ -131,3 +131,5 @@ and @import in style files
 in order to generate types for .module.scss, so when using in component
 styles. - it would suggest class names
 install typed-scss-modules package
+!!!!or a better version, install plugin for vite
+vite-plugin-sass-dts it will do it without running a separate script
