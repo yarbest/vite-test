@@ -1,11 +1,10 @@
 interface CheckboxProps {
-  isChecked: boolean;
-  listItemId: string;
-  onChecked: (id: string) => void
+  isChecked: boolean
+  onChecked: () => void
 }
 
-const Checkbox = ({ isChecked, listItemId, onChecked }: CheckboxProps) => {
-  return <input type="checkbox" checked={isChecked} onChange={() => onChecked(listItemId)}></input>;
-};
+const Checkbox = ({ isChecked, onChecked }: CheckboxProps) => {
+  return <input type="checkbox" checked={isChecked} onChange={onChecked}></input>
+}
 
-export default Checkbox;
+export default Checkbox

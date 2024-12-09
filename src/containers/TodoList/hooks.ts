@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { ListItemType } from '.'
+import { EditListItemData, ListItemType } from './types'
 
 export const useTodoList = () => {
   const [listItems, setListItems] = useState<ListItemType[]>([
@@ -16,16 +16,33 @@ export const useTodoList = () => {
     setListItems(prevListItems => prevListItems.filter(prevListItem => prevListItem.id !== id))
   }, [])
 
-  const onChecked = useCallback((id: string) => {
+  const editListItem = useCallback(({ id, text, isCheckChanged }: EditListItemData) => {
     setListItems((prevListItems) => {
       return prevListItems.map(prevListItem => prevListItem.id === id
         ? {
             ...prevListItem,
-            isChecked: !prevListItem.isChecked,
+            isChecked: isCheckChanged ? !prevListItem.isChecked : prevListItem.isChecked,
+            text: text ? text : prevListItem.text,
           }
         : prevListItem,
       )
     })
   }, [])
-  return { listItems, addListItem, deleteListItem, onChecked }
+
+  const setIsEditingListItem = useCallback((id: string, isEditing: boolean) => {
+    setListItems(prevListItems =>
+      prevListItems.map(prevListItem => prevListItem.id === id ? { ...prevListItem, isEditing } : prevListItem),
+    )
+  }, [])
+
+  return { listItems, addListItem, deleteListItem, editListItem, setIsEditingListItem }
+}
+
+export const useInputValue = () => {
+  const [inputValue, setInputValue] = useState('')
+  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value)
+  }, [])
+
+  return { inputValue, handleChange, setInputValue }
 }

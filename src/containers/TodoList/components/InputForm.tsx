@@ -1,27 +1,36 @@
-import React, { useCallback, useState } from 'react'
-import { ListItemType } from '..'
+import React, { useCallback } from 'react'
 import Button from './Button'
+import { ListItemType } from '../types'
 
-interface InputFormProps {
+// This means, if isEditing is passed, then addListItem is prohibited
+// and vice versa, so only one of these props can be passed, everything from InputFormPropsCommon can be passed
+interface InputFormPropsEdit {
+  isEditing: boolean
+  addListItem?: never
+}
+interface InputFormPropsSubmit {
   addListItem: (newListItem: ListItemType) => void
+  isEditing?: never
+}
+interface InputFormPropsCommon {
+  inputValue?: string
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  setInputValue?: (value: string) => void
 }
 
-const InputForm = ({ addListItem }: InputFormProps) => {
-  const [inputValue, setInputValue] = useState('')
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value)
-  }
+type InputFormProps = InputFormPropsCommon & (InputFormPropsEdit | InputFormPropsSubmit)
 
-  const onButtonClick = useCallback(() => {
-    addListItem({ id: Math.random().toString(), text: inputValue, isChecked: false })
-    setInputValue('')
-  }, [addListItem, inputValue])
+const InputForm = ({ addListItem, isEditing = false, inputValue = '', onChange, setInputValue }: InputFormProps) => {
+  const handleAddListItem = useCallback(() => {
+    if (addListItem) addListItem({ id: Math.random().toString(), text: inputValue, isChecked: false })
+    setInputValue?.('')
+  }, [addListItem, inputValue, setInputValue])
 
   return (
-    <div>
-      <input value={inputValue} onChange={handleChange} />
-      <Button label="Add" onClick={onButtonClick} />
-    </div>
+    <>
+      <input value={inputValue} onChange={onChange} />
+      {!isEditing && <Button label="Add" onClick={handleAddListItem} />}
+    </>
   )
 }
 
