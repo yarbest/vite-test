@@ -44,6 +44,7 @@ export default tseslint.config(
           map: [
             ['', './public'], // allows to import from public folder: import viteLogo from '/vite.svg';
             ['@containers', './src/containers'], // so it doesn't give error when using alias described in tsconfig.json
+            ['src', './src'], // so I can import like: from 'src/store'
           ],
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },

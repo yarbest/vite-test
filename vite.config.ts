@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
       // without it, it will fail in browser if I use alias imports
       alias: {
         '@containers': path.resolve(__dirname, 'src/containers'),
+        'src': path.resolve(__dirname, './src'), // so I can import like: from 'src/store'
       },
     },
     test: {
