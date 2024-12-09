@@ -1,11 +1,13 @@
 import ListItem from './components/ListItem'
 import styles from './TodoList.module.scss'
 import InputForm from './components/InputForm'
-import { useInputValue, useTodoList } from './hooks'
+import { useFilterListItems, useInputValue, useTodoList } from './hooks'
+import Filters from './components/Filters'
 
 const TodoList = () => {
   const { addListItem, deleteListItem, listItems, editListItem, setIsEditingListItem } = useTodoList()
   const { inputValue, handleChange: handleChangeInputValue, setInputValue } = useInputValue()
+  const { filteredListItems, setFilterListType } = useFilterListItems(listItems)
 
   return (
     <>
@@ -16,8 +18,10 @@ const TodoList = () => {
         setInputValue={setInputValue}
       />
 
+      <Filters onFilterChange={setFilterListType} />
+
       <ul className={styles.list}>
-        {listItems.map(listItem => (
+        {filteredListItems.map(listItem => (
           <ListItem
             key={listItem.id}
             listItem={listItem}

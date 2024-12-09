@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { EditListItemData, ListItemType } from './types'
+import { EditListItemData, FilterType, ListItemType } from './types'
 
 export const useTodoList = () => {
   const [listItems, setListItems] = useState<ListItemType[]>([
@@ -83,4 +83,25 @@ export const useInputValue = () => {
   }, [])
 
   return { inputValue, handleChange, setInputValue }
+}
+
+export const useFilterListItems = (listItems: ListItemType[]) => {
+  const [filteredListType, setFilterListType] = useState(FilterType.ALL)
+  let filteredListItems: ListItemType[]
+
+  switch (filteredListType) {
+    case FilterType.ACTIVE:
+      filteredListItems = listItems.filter(listItem => !listItem.isChecked)
+      break
+    case FilterType.COMPLETED:
+      filteredListItems = listItems.filter(listItem => listItem.isChecked)
+      break
+    default:
+      filteredListItems = listItems
+  }
+
+  return {
+    filteredListItems,
+    setFilterListType,
+  }
 }
