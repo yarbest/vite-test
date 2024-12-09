@@ -2,6 +2,7 @@ import React, { useCallback } from 'react'
 import Button from './Button'
 import { ListItemType } from '../types'
 
+// Props overloading
 // This means, if isEditing is passed, then addListItem is prohibited
 // and vice versa, so only one of these props can be passed, everything from InputFormPropsCommon can be passed
 interface InputFormPropsEdit {

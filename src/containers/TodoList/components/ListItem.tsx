@@ -1,9 +1,8 @@
-import { useCallback } from 'react'
 import { EditListItemData, ListItemType } from '../types'
 import Button from './Button'
 import Checkbox from './Checkbox'
 import InputForm from './InputForm'
-import { useInputValue } from '../hooks'
+import { useInputValue, useListItem } from '../hooks'
 
 interface ListItemProps {
   listItem: ListItemType
@@ -15,20 +14,12 @@ interface ListItemProps {
 const ListItem = ({ listItem, editListItem, deleteListItem, setIsEditingListItem }: ListItemProps) => {
   const { inputValue, handleChange: handleChangeInputValue, setInputValue } = useInputValue()
 
-  const handleChecked = useCallback(() => {
-    editListItem({ id: listItem.id, isCheckChanged: true })
-  }, [editListItem, listItem.id])
-
-  const handleStartEditing = useCallback(() => {
-    setIsEditingListItem(listItem.id, true)
-    setInputValue(listItem.text)
-  }, [listItem.id, setIsEditingListItem, setInputValue, listItem.text])
-
-  const handleFinishEditing = useCallback(() => {
-    setIsEditingListItem(listItem.id, false)
-    editListItem({ id: listItem.id, text: inputValue })
-    setInputValue('')
-  }, [listItem.id, setIsEditingListItem, editListItem, inputValue, setInputValue])
+  const {
+    handleChecked,
+    handleFinishEditing,
+    handleStartEditing,
+    handleDeleteItemList,
+  } = useListItem({ listItem, editListItem, setIsEditingListItem, setInputValue, inputValue, deleteListItem })
 
   return (
     <li>
@@ -55,7 +46,7 @@ const ListItem = ({ listItem, editListItem, deleteListItem, setIsEditingListItem
 
       <Button
         label="Delete"
-        onClick={() => deleteListItem(listItem.id)}
+        onClick={handleDeleteItemList}
       />
     </li>
   )

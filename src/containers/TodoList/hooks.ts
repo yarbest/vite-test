@@ -38,6 +38,44 @@ export const useTodoList = () => {
   return { listItems, addListItem, deleteListItem, editListItem, setIsEditingListItem }
 }
 
+export const useListItem = ({
+  listItem, inputValue, editListItem, setIsEditingListItem, setInputValue, deleteListItem,
+}: {
+  listItem: ListItemType
+  editListItem: (editListItemData: EditListItemData) => void
+  setIsEditingListItem: (id: string, isEditing: boolean) => void
+  setInputValue: (value: string) => void
+  inputValue: string
+  deleteListItem: (id: string) => void
+},
+) => {
+  const handleChecked = useCallback(() => {
+    editListItem({ id: listItem.id, isCheckChanged: true })
+  }, [editListItem, listItem.id])
+
+  const handleDeleteItemList = useCallback(() => {
+    deleteListItem(listItem.id)
+  }, [deleteListItem, listItem.id])
+
+  const handleStartEditing = useCallback(() => {
+    setIsEditingListItem(listItem.id, true)
+    setInputValue(listItem.text)
+  }, [listItem.id, setIsEditingListItem, setInputValue, listItem.text])
+
+  const handleFinishEditing = useCallback(() => {
+    setIsEditingListItem(listItem.id, false)
+    editListItem({ id: listItem.id, text: inputValue })
+    setInputValue('')
+  }, [listItem.id, setIsEditingListItem, editListItem, inputValue, setInputValue])
+
+  return {
+    handleChecked,
+    handleStartEditing,
+    handleFinishEditing,
+    handleDeleteItemList,
+  }
+}
+
 export const useInputValue = () => {
   const [inputValue, setInputValue] = useState('')
   const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
