@@ -1,15 +1,15 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import styles from './App.module.scss';
-import TodoList from '@containers/TodoList';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import styles from './App.module.scss'
+import TodoList from '@containers/TodoList'
 
 // import { func } from '@containers/a';
 
-console.log(import.meta.env);
+console.log(import.meta.env)
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0)
   return (
     <>
       <TodoList />
@@ -23,14 +23,19 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className={styles.card}>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+        <button onClick={() => setCount(count => count + 1)}>
+          count is
+          {count}
+        </button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Edit
+          <code>src/App.tsx</code>
+          and save to test HMR
         </p>
       </div>
       <p className={styles.readTheDocs}>Click on the Vite and React logos to learn more</p>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
