@@ -13,4 +13,4 @@ export default {
     '\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.js',
     // '^@containers/(.*)$': '<rootDir>/src/containers/$1',
   },
-};
+}
