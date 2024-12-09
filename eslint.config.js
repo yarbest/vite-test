@@ -57,6 +57,9 @@ export default tseslint.config(
       'import/no-unresolved': 'error',
 
       ...stylistic.configs['recommended-extends'].rules,
+
+      '@typescript-eslint/no-empty-function': 'off',
+      "@stylistic/max-len": ["error", { "code": 120 }]
     },
   }
 );

@@ -73,6 +73,8 @@ import stylistic from '@stylistic/eslint-plugin'
 to plugins: '@stylistic': stylistic,
 to rules: ...stylistic.configs['recommended-extends'].rules,
 
+note: linter doesn't work if there is an error in file
+
 ==========
 
 getting env, regularly it's process.env.MY*ENV
