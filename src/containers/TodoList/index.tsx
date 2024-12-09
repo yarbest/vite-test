@@ -3,12 +3,16 @@ import styles from './TodoList.module.scss'
 import InputForm from './components/InputForm'
 import { useFilterListItems, useInputValue, useTodoList } from './hooks'
 import Filters from './components/Filters'
+import { useEffect } from 'react'
 
 const TodoList = () => {
   const { addListItem, deleteListItem, listItems, editListItem, setIsEditingListItem } = useTodoList()
   const { inputValue, handleChange: handleChangeInputValue, setInputValue } = useInputValue()
   const { filteredListItems, setFilterListType } = useFilterListItems(listItems)
 
+  useEffect(() => {
+    throw new Error('Test error boundary')
+  }, [])
   return (
     <>
       <InputForm

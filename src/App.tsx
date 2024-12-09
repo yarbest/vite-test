@@ -3,16 +3,31 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import styles from './App.module.scss'
 import TodoList from '@containers/TodoList'
-
-// import { func } from '@containers/a';
+import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
 
 console.log(import.meta.env)
+
+function fallbackRender({ error }: FallbackProps) {
+  // Call resetErrorBoundary() to reset the error boundary and retry the render.
+
+  console.log(error)
+
+  return (
+    <div role="alert">
+      <p>
+        Error
+      </p>
+    </div>
+  )
+}
 
 function App() {
   const [count, setCount] = useState(0)
   return (
     <>
-      <TodoList />
+      <ErrorBoundary fallbackRender={fallbackRender}>
+        <TodoList />
+      </ErrorBoundary>
       <div>
         <a href="https://vite.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className={styles.logo} alt="Vite logo" />
