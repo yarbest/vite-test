@@ -47,9 +47,9 @@ export default defineConfig(({ mode }) => {
     // envDir: './env', // default is root which is -> .
     // envPrefix: 'APP_', // default is VITE_
 
-    build: {
-      // default is dist, can be changed
-      outDir: 'build',
-    },
+    // build: {
+    //   // default is dist, can be changed
+    //   outDir: 'build',
+    // },
   }
 })
