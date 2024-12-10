@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { EditListItemData, FilterType, ListItemType } from './types'
 
+// was replaced by store
 export const useTodoList = () => {
   const [listItems, setListItems] = useState<ListItemType[]>([
     { text: 'Buy milk', isChecked: false, id: '1' },
