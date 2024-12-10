@@ -5,8 +5,9 @@ import { useFilterListItems, useInputValue } from './hooks'
 import Filters from './components/Filters'
 import { selectListItems } from './selectors'
 import { useAppDispatch, useAppSelector } from 'src/store.ts'
-import { addListItem, deleteListItem, editListItem, setIsEditingListItem } from './todoListSlice'
+import { addListItem, deleteListItem, editListItem, fetchTodos, setIsEditingListItem } from './todoListSlice'
 import { EditListItemData, ListItemType } from './types'
+import { useEffect } from 'react'
 
 const TodoList = () => {
   const listItems = useAppSelector(selectListItems)
@@ -15,6 +16,12 @@ const TodoList = () => {
   // const { addListItem, deleteListItem, listItems, editListItem, setIsEditingListItem } = useTodoList()
   const { inputValue, handleChange: handleChangeInputValue, setInputValue } = useInputValue()
   const { filteredListItems, setFilterListType } = useFilterListItems(listItems)
+
+  useEffect(() => {
+    // void - means that result of function is not used
+    //  fetchTodos is promise and TS wants to have .catch here, but it's alredy inside the function
+    void dispatch(fetchTodos(1))
+  }, [dispatch])
 
   // useEffect(() => {
   //   throw new Error('Test error boundary')

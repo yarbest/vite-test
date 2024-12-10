@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { FilterType, ListItemType, EditListItemData } from './types'
 
@@ -35,6 +35,34 @@ export const todoListSlice = createSlice({
     },
   },
 })
+
+interface TodoFromAPI {
+  userId: number
+  id: number
+  title: string
+  completed: boolean
+}
+export const fetchTodos = createAsyncThunk(
+  'todos/fetchById',
+  async (todoId: number, thunkApi) => {
+    // return fetch(`https://jsonplaceholder.typicode.com/todos/${1111}`)
+    //   .then(response => response.json() as Promise<TodoFromAPI>)
+    //   .then(data => data)
+    //   .catch(() => thunkApi.rejectWithValue('Couldn"t load todo'))
+
+    try {
+      const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${todoId}`)
+      // 404 is not an error, so we need to throw an error manually
+      if (!response.ok) throw new Error('Server error')
+      const data = await response.json() as TodoFromAPI
+      return data
+    }
+    catch (e) {
+      console.error(e)
+      return thunkApi.rejectWithValue('Couldn"t load todo')
+    }
+  },
+)
 
 export const { addListItem, deleteListItem, editListItem, setIsEditingListItem } = todoListSlice.actions
 export const todoListReducer = todoListSlice.reducer
