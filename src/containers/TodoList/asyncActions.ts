@@ -6,7 +6,7 @@ interface TodoFromAPI {
   title: string
   completed: boolean
 }
-export const fetchTodos = createAsyncThunk(
+export const fetchTodos = createAsyncThunk<TodoFromAPI, number, { rejectValue: string }>(
   'todos/fetchTodosById',
   async (todoId: number, thunkApi) => {
     try {

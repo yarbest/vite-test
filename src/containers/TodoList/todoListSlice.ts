@@ -52,7 +52,7 @@ export const todoListSlice = createSlice({
       state.isFetching = false
     })
       .addCase(fetchTodos.rejected, (state, action) => {
-        state.error = action.payload as string
+        state.error = action.payload
         state.isFetching = false
       })
       .addCase(fetchTodos.pending, (state) => {
