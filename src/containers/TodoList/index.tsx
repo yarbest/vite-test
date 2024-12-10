@@ -7,8 +7,9 @@ import { selectHasError, selectIsFetching, selectListItems } from './selectors'
 import { useAppDispatch, useAppSelector } from 'src/store.ts'
 import { addListItem, deleteListItem, editListItem, setIsEditingListItem } from './todoListSlice'
 import { EditListItemData, ListItemType } from './types'
-import { useEffect } from 'react'
+import { useCallback } from 'react'
 import { fetchTodos } from './asyncActions'
+import Button from './components/Button'
 
 const TodoList = () => {
   const listItems = useAppSelector(selectListItems)
@@ -17,24 +18,28 @@ const TodoList = () => {
   const dispatch = useAppDispatch()
 
   const { inputValue, handleChange: handleChangeInputValue, setInputValue } = useInputValue()
+  const {
+    inputValue: searchTodoInputValue,
+    handleChange: handleChangeSearchTodoInputValue,
+    setInputValue: setSearchTodoInputValue,
+  } = useInputValue()
   const { filteredListItems, setFilterListType } = useFilterListItems(listItems)
 
-  useEffect(() => {
+  const handleSearchTodo = useCallback(() => {
     // void - means that result of function is not used
     //  fetchTodos is promise and TS wants to have .catch here, but it's alredy inside the function
-    void dispatch(fetchTodos(2221))
-  }, [dispatch])
-
-  if (isFetching) return <div>Loading...</div>
-  if (error) return (
-    <div>
-      Error:
-      {error}
-    </div>
-  )
+    void dispatch(fetchTodos(Number(searchTodoInputValue)))
+    setSearchTodoInputValue('')
+  }, [dispatch, searchTodoInputValue, setSearchTodoInputValue])
 
   return (
     <>
+      {error && <div>{error}</div>}
+      {isFetching && <div>Loading...</div>}
+
+      <input type="number" min={1} value={searchTodoInputValue} onChange={handleChangeSearchTodoInputValue} />
+      <Button label="Add from api" onClick={handleSearchTodo} />
+
       <InputForm
         addListItem={(newListItem: ListItemType) => dispatch(addListItem(newListItem))}
         inputValue={inputValue}

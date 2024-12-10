@@ -42,7 +42,6 @@ export const todoListSlice = createSlice({
   extraReducers: (builder) => {
     // this doen't work anymore [fetchTodos.pending.type]: (state) => {}
     builder.addCase(fetchTodos.fulfilled, (state, action) => {
-      // transform data from API to our format
       state.listItems.push({
         id: action.payload.id.toString(),
         text: action.payload.title,
