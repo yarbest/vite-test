@@ -3,13 +3,13 @@ import styles from './TodoList.module.scss'
 import InputForm from './components/InputForm'
 import { useFilterListItems, useInputValue } from './hooks'
 import Filters from './components/Filters'
-import { selectHasError, selectIsFetching, selectListItems } from './selectors'
+import { selectHasError, selectIsFetching, selectListItems } from './store/selectors'
 import { useAppDispatch, useAppSelector } from 'src/store.ts'
-import { addListItem, deleteListItem, editListItem, setIsEditingListItem } from './todoListSlice'
+import { addListItem, deleteListItem, editListItem, setIsEditingListItem } from './store/todoListSlice'
 import { EditListItemData, ListItemType } from './types'
 import { useCallback } from 'react'
-import { fetchTodos } from './asyncActions'
 import Button from './components/Button'
+import { fetchTodos } from './store/asyncActions'
 
 const TodoList = () => {
   const listItems = useAppSelector(selectListItems)
@@ -29,7 +29,7 @@ const TodoList = () => {
     // void - means that result of function is not used
     //  fetchTodos is promise and TS wants to have .catch here, but it's alredy inside the function
     void dispatch(fetchTodos(Number(searchTodoInputValue)))
-    setSearchTodoInputValue('')
+    setSearchTodoInputValue('')//
   }, [dispatch, searchTodoInputValue, setSearchTodoInputValue])
 
   return (

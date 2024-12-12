@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { FilterType, ListItemType, EditListItemData } from './types'
+import { FilterType, ListItemType, EditListItemData } from '../types'
 import { fetchTodos } from './asyncActions'
 
 export interface TodoListState {
