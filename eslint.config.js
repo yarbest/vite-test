@@ -60,7 +60,16 @@ export default tseslint.config(
       ...stylistic.configs['recommended-extends'].rules,
 
       '@typescript-eslint/no-empty-function': 'off',
-      "@stylistic/max-len": ["error", { "code": 120 }]
+      "@stylistic/max-len": ["error", { "code": 120 }],
+      
     },
+  },
+  {
+    files: ["**/*.module.scss.d.ts"],
+    rules: {
+        '@stylistic/quotes': "off",
+        '@stylistic/semi': "off",
+        '@stylistic/member-delimiter-style': "off",
+    }
   }
 );
