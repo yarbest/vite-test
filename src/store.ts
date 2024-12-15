@@ -2,12 +2,21 @@ import type { Action, ThunkAction } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import { todoListReducer } from '@containers/TodoList/store/todoListSlice'
+import { todoApi } from '@containers/TodoList/store/todoService'
 
 export const store = configureStore({
   reducer: {
     todoList: todoListReducer,
+    [todoApi.reducerPath]: todoApi.reducer,
+  },
+  // for rtk query
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(todoApi.middleware)
   },
 })
+
+// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
+// setupListeners(store.dispatch)
 
 // Infer the type of `store`
 export type AppStore = typeof store

@@ -5,6 +5,13 @@ export interface ListItemType {
   isEditing?: boolean
 }
 
+export interface TodoFromAPI {
+  userId: number
+  id: number
+  title: string
+  completed: boolean
+}
+
 export type EditListItemData = Pick<ListItemType, 'id'> & {
   text?: string
   isCheckChanged?: boolean

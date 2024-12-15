@@ -1,11 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { TodoFromAPI } from '../types'
 
-interface TodoFromAPI {
-  userId: number
-  id: number
-  title: string
-  completed: boolean
-}
 export const fetchTodos = createAsyncThunk<TodoFromAPI, number, { rejectValue: string }>(
   'todos/fetchTodosById',
   async (todoId: number, thunkApi) => {

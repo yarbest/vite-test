@@ -1,19 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { FilterType, ListItemType, EditListItemData } from '../types'
-import { fetchTodos } from './asyncActions'
+import { todoApi } from './todoService'
+// import { fetchTodos } from './asyncActions'
+// import { todoApi } from './todoService'
 
 export interface TodoListState {
   listItems: ListItemType[]
   filterType: FilterType
-  error?: string | null
+  // taken from rtk query generated hook
+  // error?: string | null
   isFetching: boolean
 }
 
 const initialState: TodoListState = {
   listItems: [],
   filterType: FilterType.ALL,
-  error: null,
+  // error: null,
   isFetching: false,
 }
 
@@ -40,24 +43,34 @@ export const todoListSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // this doen't work anymore [fetchTodos.pending.type]: (state) => {}
-    builder.addCase(fetchTodos.fulfilled, (state, action) => {
-      state.listItems.push({
-        id: action.payload.id.toString(),
-        text: action.payload.title,
-        isChecked: action.payload.completed,
-        isEditing: false,
-      })
-      state.error = null
-      state.isFetching = false
+  // for using thunk (asyncActions.ts)
+    // builder
+    // .addCase(fetchTodos.fulfilled, (state, action) => {
+    //   state.listItems.push({
+    //     id: action.payload.id.toString(),
+    //     text: action.payload.title,
+    //     isChecked: action.payload.completed,
+    //     isEditing: false,
+    //   })
+    //   state.error = null
+    //   state.isFetching = false
+    // })
+    // .addCase(fetchTodos.rejected, (state, action) => {
+    //   state.error = action.payload
+    //   state.isFetching = false
+    // })
+    // .addCase(fetchTodos.pending, (state) => {
+    //   state.isFetching = true
+    // })
+
+    // for rtk query
+    // when we getTodoById, we need to add it to local todos, here we listen to action with type:
+    // 'todoApi/executeQuery/fulfilled'
+    builder.addMatcher(todoApi.endpoints.getTodoById.matchFulfilled, (state, action) => {
+      state.listItems.push(action.payload)
     })
-      .addCase(fetchTodos.rejected, (state, action) => {
-        state.error = action.payload
-        state.isFetching = false
-      })
-      .addCase(fetchTodos.pending, (state) => {
-        state.isFetching = true
-      })
+
+  // })
   },
 })
 
