@@ -3,11 +3,17 @@ import { Navigate, RouteObject, useRoutes } from 'react-router-dom'
 import NotFound from './NotFound'
 import { paths } from './paths'
 import LazyLoad from './LazyLoadComponent'
+import PrivateRoute from './PrivateRoute'
 
 // todo: replace path to "page" from container
 const TodosPage = LazyLoad(lazy(() => import('@containers/TodoList')))
+const LoginPage = LazyLoad(lazy(() => import('src/pages/LoginPage')))
 
 const publicRoutes: RouteObject[] = [
+  {
+    path: paths.login,
+    element: <LoginPage />,
+  },
   {
     path: paths.notFound,
     element: <NotFound />,
@@ -15,7 +21,14 @@ const publicRoutes: RouteObject[] = [
 ]
 
 const privateRoutes: RouteObject[] = [
-  { path: paths.todos, element: <TodosPage /> },
+  {
+    path: paths.todos,
+    element: (
+      <PrivateRoute>
+        <TodosPage />
+      </PrivateRoute>
+    ),
+  },
   {
     path: '*',
     element: <Navigate to={paths.notFound} replace />,
