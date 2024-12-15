@@ -1,13 +1,9 @@
-import { useState } from 'react'
 import { Provider } from 'react-redux'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import styles from './App.module.scss'
-import TodoList from '@containers/TodoList'
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
 import { store } from './store'
-
-console.log(import.meta.env)
+import { BrowserRouter } from 'react-router-dom'
+import Router from './routes/Router'
+// import TodoList from '@containers/TodoList'
 
 function fallbackRender({ error }: FallbackProps) {
   // Call resetErrorBoundary() to reset the error boundary and retry the render.
@@ -24,35 +20,16 @@ function fallbackRender({ error }: FallbackProps) {
 }
 
 function App() {
-  const [count, setCount] = useState(0)
   return (
     <>
-      <Provider store={store}>
-        <ErrorBoundary fallbackRender={fallbackRender}>
-          <TodoList />
-        </ErrorBoundary>
-      </Provider>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className={styles.logo} alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className={`${styles.logo} ${styles.react}`} alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className={styles.card}>
-        <button onClick={() => setCount(count => count + 1)}>
-          count is
-          {count}
-        </button>
-        <p>
-          Edit
-          <code>src/App.tsx</code>
-          and save to test HMR
-        </p>
-      </div>
-      <p className={styles.readTheDocs}>Click on the Vite and React logos to learn more</p>
+      <BrowserRouter>
+        <Provider store={store}>
+          <ErrorBoundary fallbackRender={fallbackRender}>
+            {/* <TodoList /> */}
+            <Router />
+          </ErrorBoundary>
+        </Provider>
+      </BrowserRouter>
     </>
   )
 }
