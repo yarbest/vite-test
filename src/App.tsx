@@ -3,8 +3,7 @@ import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
 import { store } from './store'
 import { BrowserRouter } from 'react-router-dom'
 import Router from './routes/Router'
-import AuthProvider from './context/AuthProvider'
-// import TodoList from '@containers/TodoList'
+import AuthProvider from './context/auth/AuthProvider'
 
 function fallbackRender({ error }: FallbackProps) {
   // Call resetErrorBoundary() to reset the error boundary and retry the render.
@@ -26,7 +25,6 @@ function App() {
       <BrowserRouter>
         <Provider store={store}>
           <ErrorBoundary fallbackRender={fallbackRender}>
-            {/* <TodoList /> */}
             <AuthProvider>
               <Router />
             </AuthProvider>

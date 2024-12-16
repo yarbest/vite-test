@@ -1,8 +1,8 @@
 import { useContext } from 'react'
 import { Location, useLocation, useNavigate } from 'react-router-dom'
-import { AuthContext } from 'src/context/AuthContext'
 import { paths } from 'src/routes/paths'
 import Button from '../TodosPage/components/Button'
+import { AuthContext } from 'src/context/auth/AuthContext'
 
 const LoginPage = () => {
   const { login } = useContext(AuthContext)
