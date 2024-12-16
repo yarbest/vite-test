@@ -4,6 +4,7 @@ import NotFound from './NotFound'
 import { paths } from './paths'
 import LazyLoad from './LazyLoadComponent'
 import PrivateRoute from './PrivateRoute'
+import TodoPage from '@pages/TodoPage'
 
 const TodosPage = LazyLoad(lazy(() => import('@pages/TodosPage')))
 const LoginPage = LazyLoad(lazy(() => import('@pages/LoginPage')))
@@ -25,6 +26,14 @@ const privateRoutes: RouteObject[] = [
     element: (
       <PrivateRoute>
         <TodosPage />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: paths.todo,
+    element: (
+      <PrivateRoute>
+        <TodoPage />
       </PrivateRoute>
     ),
   },
