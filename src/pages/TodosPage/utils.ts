@@ -1,6 +1,6 @@
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
-import { ListItemType, TodoFromAPI } from './types'
 import { SerializedError } from '@reduxjs/toolkit'
+import { ListItemType, TodoFromAPI } from './types'
 
 export const transformTodoFromApi = ({ completed, id, title }: TodoFromAPI): ListItemType => {
   return {

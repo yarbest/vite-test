@@ -1,5 +1,5 @@
-import Button from '@containers/TodoList/components/Button'
 import { render } from '@testing-library/react'
+import Button from '../components/Button'
 
 it('renders Button', () => {
   const { getByText } = render(

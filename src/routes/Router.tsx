@@ -6,7 +6,7 @@ import LazyLoad from './LazyLoadComponent'
 import PrivateRoute from './PrivateRoute'
 
 // todo: replace path to "page" from container
-const TodosPage = LazyLoad(lazy(() => import('@containers/TodoList')))
+const TodosPage = LazyLoad(lazy(() => import('src/pages/TodosPage')))
 const LoginPage = LazyLoad(lazy(() => import('src/pages/LoginPage')))
 
 const publicRoutes: RouteObject[] = [
@@ -28,6 +28,10 @@ const privateRoutes: RouteObject[] = [
         <TodosPage />
       </PrivateRoute>
     ),
+  },
+  {
+    path: '/',
+    element: <Navigate to={paths.todos} replace />,
   },
   {
     path: '*',
