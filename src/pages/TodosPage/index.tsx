@@ -5,9 +5,8 @@ import { useFilterListItems, useInputValue } from './hooks'
 import Filters from './components/Filters'
 import { useAppDispatch, useAppSelector } from 'src/store.ts'
 import { addListItem, deleteListItem, editListItem, setIsEditingListItem } from './store/todoListSlice'
-import { EditListItemData, ListItemType } from './types'
+import { EditListItemData } from './types'
 import { useCallback } from 'react'
-import Button from './components/Button'
 import { useLazyGetTodoByIdQuery } from './store/todoService'
 import { selectListItems } from './store/selectors'
 import { getErrorMessage } from './utils'
@@ -24,7 +23,7 @@ const TodoList = () => {
   const dispatch = useAppDispatch()
 
   // useGetTodoByIdQuery - starts request right away, and on every render
-  // const {data: listItems, error, isLoading: isFetching } = useGetTodoByIdQuery(Number(searchTodoInputValue))
+  // const {data: listItems, error, isFetching } = useGetTodoByIdQuery(Number(searchTodoInputValue))
   // useLazy - start, only when called
   // ===
   // {data} from hook, <- can't use this by default, cause its type is TodoFromAPI, not ListItemType[]
@@ -33,7 +32,7 @@ const TodoList = () => {
   // or in service, field transformResmonse, same for error - transformErrorResponse
   // we don't use {data} from here, but below, when triggering request, cause then we add it to store,
   // and it need to happen only once, after user click
-  const [getTodoById, { isLoading: isFetching, error }] = useLazyGetTodoByIdQuery()
+  const [getTodoById, { error, isFetching }] = useLazyGetTodoByIdQuery()
 
   const { filteredListItems, setFilterListType } = useFilterListItems(listItems)
 
@@ -50,19 +49,29 @@ const TodoList = () => {
     // if (newListItem) dispatch(addListItem(newListItem))
   }, [searchTodoInputValue, setSearchTodoInputValue, getTodoById])
 
+  const handleAddCustomListItem = useCallback(() => {
+    if (inputValue) dispatch(addListItem({ id: Math.random().toString(), text: inputValue, isChecked: false }))
+    setInputValue?.('')
+  }, [dispatch, inputValue, setInputValue])
+
   return (
     <>
-      {error && <div>{getErrorMessage(error)}</div>}
-      {isFetching && <div>Loading...</div>}
-
-      <input type="number" min={1} value={searchTodoInputValue} onChange={handleChangeSearchTodoInputValue} />
-      <Button label="Add from api" onClick={handleSearchTodo} />
+      <div>
+        {error && <span>{getErrorMessage(error)}</span>}
+        {isFetching && <span>Loading...</span>}
+      </div>
 
       <InputForm
-        addListItem={(newListItem: ListItemType) => dispatch(addListItem(newListItem))}
+        onAddListItem={handleSearchTodo}
+        inputValue={searchTodoInputValue}
+        onChange={handleChangeSearchTodoInputValue}
+        isFromApi
+      />
+
+      <InputForm
+        onAddListItem={handleAddCustomListItem}
         inputValue={inputValue}
         onChange={handleChangeInputValue}
-        setInputValue={setInputValue}
       />
 
       <Filters onFilterChange={setFilterListType} />

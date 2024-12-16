@@ -24,7 +24,7 @@ const ListItem = ({ listItem, editListItem, deleteListItem, setIsEditingListItem
   } = useListItem({ listItem, editListItem, setIsEditingListItem, setInputValue, inputValue, deleteListItem })
 
   return (
-    <li>
+    <li className={styles.listItem}>
       <Checkbox
         isChecked={listItem.isChecked}
         onChecked={handleChecked}
@@ -36,10 +36,9 @@ const ListItem = ({ listItem, editListItem, deleteListItem, setIsEditingListItem
               isEditing
               inputValue={inputValue}
               onChange={handleChangeInputValue}
-              setInputValue={setInputValue}
             />
           )
-        : <span className={styles.listItem} onClick={navigateToTodo}>{listItem.text}</span>}
+        : <span className={styles.listItemText} onClick={navigateToTodo}>{listItem.text}</span>}
 
       <Button
         label={listItem.isEditing ? 'Submit' : 'Edit'}

@@ -12,9 +12,9 @@ export const todoApi = createApi({
       transformResponse: (value: TodoFromAPI) => transformTodoFromApi(value),
       // this would allow to have a clear message in action.payload in slice
       // and in generated hook, field error
-      transformErrorResponse: (error): string => {
+      transformErrorResponse: (error, _, arg): string => {
         if (error.status === 404) {
-          return 'Todo not found'
+          return `Todo with id: ${arg}, not found`
         }
         return 'Couldn\'t load todo'
       },

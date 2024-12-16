@@ -1,37 +1,39 @@
-import React, { useCallback } from 'react'
+import React from 'react'
+import classNames from 'classnames'
 import Button from './Button'
-import { ListItemType } from '../types'
+import styles from './styles.module.scss'
 
 // Props overloading
-// This means, if isEditing is passed, then addListItem is prohibited
+// This means, if isEditing is passed, then onAddListItem is prohibited
 // and vice versa, so only one of these props can be passed, everything from InputFormPropsCommon can be passed
 interface InputFormPropsEdit {
   isEditing: boolean
-  addListItem?: never
+  onAddListItem?: never
 }
 interface InputFormPropsSubmit {
-  addListItem: (newListItem: ListItemType) => void
+  onAddListItem: () => void
   isEditing?: never
 }
 interface InputFormPropsCommon {
   inputValue?: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-  setInputValue?: (value: string) => void
+  isFromApi?: boolean
 }
 
 type InputFormProps = InputFormPropsCommon & (InputFormPropsEdit | InputFormPropsSubmit)
 
-const InputForm = ({ addListItem, isEditing = false, inputValue = '', onChange, setInputValue }: InputFormProps) => {
-  const handleAddListItem = useCallback(() => {
-    if (addListItem && inputValue) addListItem({ id: Math.random().toString(), text: inputValue, isChecked: false })
-    setInputValue?.('')
-  }, [addListItem, inputValue, setInputValue])
-
+const InputForm = ({
+  onAddListItem = () => {},
+  isEditing = false,
+  inputValue = '',
+  isFromApi = false,
+  onChange,
+}: InputFormProps) => {
   return (
-    <>
-      <input value={inputValue} onChange={onChange} />
-      {!isEditing && <Button label="Add" onClick={handleAddListItem} />}
-    </>
+    <div className={classNames(styles.inputForm, { [styles.inputFormEditing]: isEditing })}>
+      <input type={isFromApi ? 'number' : 'text'} value={inputValue} onChange={onChange} />
+      {!isEditing && <Button label={isFromApi ? 'Add from api' : 'Add custom'} onClick={onAddListItem} />}
+    </div>
   )
 }
 
