@@ -1,4 +1,5 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from 'src/store.ts'
 
@@ -24,16 +25,7 @@ const TodoList = () => {
   const listItems = useAppSelector(selectListItems)
   const dispatch = useAppDispatch()
 
-  // useGetTodoByIdQuery - starts request right away, and on every render
-  // const {data: listItems, error, isFetching } = useGetTodoByIdQuery(Number(searchTodoInputValue))
-  // useLazy - start, only when called
-  // ===
-  // {data} from hook, <- can't use this by default, cause its type is TodoFromAPI, not ListItemType[]
-  // data can transformed in extraReducers in todoListSlice.ts on success
-  // .addMatcher(todoApi.endpoints.getTodoById.matchFulfilled, (state, action) => {
-  // or in service, field transformResmonse, same for error - transformErrorResponse
-  // we don't use {data} from here, but below, when triggering request, cause then we add it to store,
-  // and it need to happen only once, after user click
+  // useGetTodoByIdQuery - starts request right away, and on every render. useLazy - start, only when called
   const [getTodoById, { error, isFetching }] = useLazyGetTodoByIdQuery()
 
   const { filteredListItems, setFilterListType } = useFilterListItems(listItems)
