@@ -1,5 +1,6 @@
-import { FilterType } from '../types'
 import Button from './Button'
+
+import { FilterType } from '../types'
 
 interface FiltersProps {
   onFilterChange: (filterType: FilterType) => void

@@ -1,7 +1,8 @@
 import { Provider } from 'react-redux'
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
-import { store } from './store'
 import { BrowserRouter } from 'react-router-dom'
+
+import { store } from './store'
 import Router from './routes/Router'
 import AuthProvider from './context/auth/AuthProvider'
 

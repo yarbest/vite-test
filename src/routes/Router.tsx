@@ -1,10 +1,12 @@
 import { lazy } from 'react'
 import { Navigate, RouteObject, useRoutes } from 'react-router-dom'
+
+import TodoPage from '@pages/TodoPage'
+
 import NotFound from './NotFound'
 import { paths } from './paths'
 import LazyLoad from './LazyLoadComponent'
 import PrivateRoute from './PrivateRoute'
-import TodoPage from '@pages/TodoPage'
 
 const TodosPage = LazyLoad(lazy(() => import('@pages/TodosPage')))
 const LoginPage = LazyLoad(lazy(() => import('@pages/LoginPage')))

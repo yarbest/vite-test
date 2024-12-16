@@ -1,7 +1,9 @@
 import { useCallback, useState } from 'react'
-import { EditListItemData, FilterType, ListItemType } from './types'
 import { useNavigate } from 'react-router-dom'
+
 import { paths } from 'src/routes/paths'
+
+import { EditListItemData, FilterType, ListItemType } from './types'
 
 // helps to remove logic from the component
 export const useListItem = ({

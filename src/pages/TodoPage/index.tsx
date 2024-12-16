@@ -1,6 +1,7 @@
-import { selectListItems } from '@pages/TodosPage/store/selectors'
 import { Navigate, useParams } from 'react-router-dom'
+
 import { paths } from 'src/routes/paths'
+import { selectListItems } from '@pages/TodosPage/store/selectors'
 import { useAppSelector } from 'src/store'
 
 interface TodoPageParams extends Record<string, string | undefined> {

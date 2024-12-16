@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
+
 import { TodoFromAPI } from '../types'
 
 export const fetchTodos = createAsyncThunk<TodoFromAPI, number, { rejectValue: string }>(

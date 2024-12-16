@@ -62,7 +62,13 @@ export default tseslint.config(
 
       '@typescript-eslint/no-empty-function': 'off',
       "@stylistic/max-len": ["error", { "code": 120 }],
-      
+      "import/order":  [
+          1, 
+          {  
+            "groups": [ "external", "builtin", "internal", "sibling", "parent", "index" ], 
+            'newlines-between': "always",
+          } 
+      ] 
     },
   },
   {

@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+
 import Loader from './Loader'
 
 type LazyLoadProps<T> = T & { fallback?: React.ReactNode }
