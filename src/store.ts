@@ -1,6 +1,6 @@
 import type { Action, ThunkAction } from '@reduxjs/toolkit'
-import { useDispatch, useSelector } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { todoListReducer } from '@pages/TodosPage/store/todoListSlice'
 import { todoApi } from '@pages/TodosPage/store/todoService'

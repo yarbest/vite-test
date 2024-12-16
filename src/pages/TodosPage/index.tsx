@@ -2,15 +2,15 @@ import { useCallback } from 'react'
 
 import { useAppDispatch, useAppSelector } from 'src/store.ts'
 
-import ListItem from './components/ListItem'
-import styles from './TodoList.module.scss'
-import InputForm from './components/InputForm'
-import { useFilterListItems, useInputValue } from './hooks'
 import Filters from './components/Filters'
-import { addListItem, deleteListItem, editListItem, setIsEditingListItem } from './store/todoListSlice'
-import { EditListItemData } from './types'
-import { useLazyGetTodoByIdQuery } from './store/todoService'
+import InputForm from './components/InputForm'
+import ListItem from './components/ListItem'
+import { useFilterListItems, useInputValue } from './hooks'
 import { selectListItems } from './store/selectors'
+import { addListItem, deleteListItem, editListItem, setIsEditingListItem } from './store/todoListSlice'
+import { useLazyGetTodoByIdQuery } from './store/todoService'
+import styles from './TodoList.module.scss'
+import { EditListItemData } from './types'
 import { getErrorMessage } from './utils'
 
 const TodoList = () => {

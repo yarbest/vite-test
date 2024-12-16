@@ -3,8 +3,8 @@ import Checkbox from './Checkbox'
 import InputForm from './InputForm'
 import styles from './styles.module.scss'
 
-import { EditListItemData, ListItemType } from '../types'
 import { useInputValue, useListItem } from '../hooks'
+import { EditListItemData, ListItemType } from '../types'
 
 interface ListItemProps {
   listItem: ListItemType

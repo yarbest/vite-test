@@ -67,11 +67,13 @@ export default tseslint.config(
           {  
             "groups": [ "external", "builtin", "internal", "sibling", "parent", "index" ], 
             'newlines-between': "always",
+            alphabetize: { order: 'asc', caseInsensitive: true },
           } 
       ] 
     },
   },
   {
+    // turns off specific rules for specific files
     files: ["**/*.module.scss.d.ts"],
     rules: {
         '@stylistic/quotes': "off",
