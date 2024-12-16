@@ -3,6 +3,7 @@ import { EditListItemData, ListItemType } from '../types'
 import Button from './Button'
 import Checkbox from './Checkbox'
 import InputForm from './InputForm'
+import styles from './styles.module.scss'
 
 interface ListItemProps {
   listItem: ListItemType
@@ -19,6 +20,7 @@ const ListItem = ({ listItem, editListItem, deleteListItem, setIsEditingListItem
     handleFinishEditing,
     handleStartEditing,
     handleDeleteItemList,
+    navigateToTodo,
   } = useListItem({ listItem, editListItem, setIsEditingListItem, setInputValue, inputValue, deleteListItem })
 
   return (
@@ -37,7 +39,7 @@ const ListItem = ({ listItem, editListItem, deleteListItem, setIsEditingListItem
               setInputValue={setInputValue}
             />
           )
-        : listItem.text}
+        : <span className={styles.listItem} onClick={navigateToTodo}>{listItem.text}</span>}
 
       <Button
         label={listItem.isEditing ? 'Submit' : 'Edit'}

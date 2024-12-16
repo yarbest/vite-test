@@ -23,7 +23,7 @@ type InputFormProps = InputFormPropsCommon & (InputFormPropsEdit | InputFormProp
 
 const InputForm = ({ addListItem, isEditing = false, inputValue = '', onChange, setInputValue }: InputFormProps) => {
   const handleAddListItem = useCallback(() => {
-    if (addListItem) addListItem({ id: Math.random().toString(), text: inputValue, isChecked: false })
+    if (addListItem && inputValue) addListItem({ id: Math.random().toString(), text: inputValue, isChecked: false })
     setInputValue?.('')
   }, [addListItem, inputValue, setInputValue])
 

@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react'
 import { EditListItemData, FilterType, ListItemType } from './types'
+import { useNavigate } from 'react-router-dom'
+import { paths } from 'src/routes/paths'
 
 // helps to remove logic from the component
 export const useListItem = ({
@@ -13,6 +15,8 @@ export const useListItem = ({
   deleteListItem: (id: string) => void
 },
 ) => {
+  const navigate = useNavigate()
+
   const handleChecked = useCallback(() => {
     editListItem({ id: listItem.id, isCheckChanged: true })
   }, [editListItem, listItem.id])
@@ -32,11 +36,16 @@ export const useListItem = ({
     setInputValue('')
   }, [listItem.id, setIsEditingListItem, editListItem, inputValue, setInputValue])
 
+  const navigateToTodo = useCallback(() => {
+    navigate(`${paths.todos}/${listItem.id}`)
+  }, [navigate, listItem.id])
+
   return {
     handleChecked,
     handleStartEditing,
     handleFinishEditing,
     handleDeleteItemList,
+    navigateToTodo,
   }
 }
 
