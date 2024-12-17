@@ -1,5 +1,4 @@
-import { useCallback, useEffect } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useCallback } from 'react'
 
 import { useAppDispatch, useAppSelector } from 'src/store.ts'
 

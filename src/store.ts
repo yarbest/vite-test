@@ -1,30 +1,37 @@
 import type { Action, ThunkAction } from '@reduxjs/toolkit'
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
+import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
 import { todoListReducer } from '@pages/TodosPage/store/todoListSlice'
 import { todoApi } from '@pages/TodosPage/store/todoService'
 
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+const todoListPersistedReducer = persistReducer(persistConfig, todoListReducer)
+
 export const store = configureStore({
   reducer: {
-    todoList: todoListReducer,
+    todoList: todoListPersistedReducer,
     [todoApi.reducerPath]: todoApi.reducer,
   },
-  // for rtk query
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(todoApi.middleware)
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(todoApi.middleware)
   },
 })
 
-// optional, but required for refetchOnFocus/refetchOnReconnect behaviors
-// setupListeners(store.dispatch)
+export const persistor = persistStore(store)
 
-// Infer the type of `store`
 export type AppStore = typeof store
 export type RootState = ReturnType<AppStore['getState']>
-// Infer the `AppDispatch` type from the store itself
 export type AppDispatch = AppStore['dispatch']
-// Define a reusable type describing thunk functions
 export type AppThunk<ThunkReturnType = void> = ThunkAction<
   ThunkReturnType,
   RootState,

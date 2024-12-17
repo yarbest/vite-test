@@ -3,23 +3,14 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { todoApi } from './todoService'
 
-import { EditListItemData, FilterType, ListItemType } from '../types'
-// import { fetchTodos } from './asyncActions'
-// import { todoApi } from './todoService'
+import { EditListItemData, ListItemType } from '../types'
 
 export interface TodoListState {
   listItems: ListItemType[]
-  filterType: FilterType
-  // taken from rtk query generated hook
-  // error?: string | null
-  isFetching: boolean
 }
 
 const initialState: TodoListState = {
   listItems: [],
-  filterType: FilterType.ALL,
-  // error: null,
-  isFetching: false,
 }
 
 export const todoListSlice = createSlice({
@@ -45,36 +36,34 @@ export const todoListSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-  // for using thunk (asyncActions.ts)
-    // builder
-    // .addCase(fetchTodos.fulfilled, (state, action) => {
-    //   state.listItems.push({
-    //     id: action.payload.id.toString(),
-    //     text: action.payload.title,
-    //     isChecked: action.payload.completed,
-    //     isEditing: false,
-    //   })
-    //   state.error = null
-    //   state.isFetching = false
-    // })
-    // .addCase(fetchTodos.rejected, (state, action) => {
-    //   state.error = action.payload
-    //   state.isFetching = false
-    // })
-    // .addCase(fetchTodos.pending, (state) => {
-    //   state.isFetching = true
-    // })
-
-    // for rtk query
-    // when we getTodoById, we need to add it to local todos, here we listen to action with type:
+    // for rtk query. when we getTodoById, we need to add it to local todos, here we listen to action with type:
     // 'todoApi/executeQuery/fulfilled'
     builder.addMatcher(todoApi.endpoints.getTodoById.matchFulfilled, (state, action) => {
       state.listItems.push(action.payload)
     })
-
-  // })
   },
 })
 
 export const { addListItem, deleteListItem, editListItem, setIsEditingListItem } = todoListSlice.actions
 export const todoListReducer = todoListSlice.reducer
+
+// for using thunk (asyncActions.ts)
+// builder
+// .addCase(fetchTodos.fulfilled, (state, action) => {
+//   state.listItems.push({
+//     id: action.payload.id.toString(),
+//     text: action.payload.title,
+//     isChecked: action.payload.completed,
+//     isEditing: false,
+//   })
+//   state.error = null
+//   state.isFetching = false
+// })
+// .addCase(fetchTodos.rejected, (state, action) => {
+//   state.error = action.payload
+//   state.isFetching = false
+// })
+// .addCase(fetchTodos.pending, (state) => {
+//   state.isFetching = true
+// })
+// })
