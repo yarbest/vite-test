@@ -1,26 +1,15 @@
-// import { configureStore } from '@reduxjs/toolkit'
-
 import { EditListItemData, ListItemType } from '../../types'
-import { addListItem, todoListReducer, initialState, deleteListItem, editListItem } from '../todoListSlice'
-import { addListItem, todoListReducer, initialState, deleteListItem, editListItem, setIsEditingListItem } from '../todoListSlice'
-import { todoApi } from '../todoService'
+import {
+  addListItem,
+  deleteListItem,
+  editListItem,
+  initialState,
+  setIsEditingListItem,
+  todoListReducer,
+} from '../todoListSlice'
 
 describe('todoListSlice', () => {
-  // let store: ReturnType<typeof configureStore>
-
-  // beforeEach(() => {
-  //   store = configureStore({
-  //     reducer: {
-  //       todoList: todoListReducer,
-  //     },
-  //   })
-  // })
-
   it('addListItem', () => {
-    // const newItem: ListItemType = { id: '1', text: 'Test item', isChecked: false, isEditing: false }
-    // store.dispatch(addListItem(newItem))
-    // const state = (store.getState() as { todoList: { listItems: ListItemType[] } }).todoList
-
     const newItem: ListItemType = { id: '1', text: 'Test item', isChecked: false, isEditing: false }
     const newState = todoListReducer(initialState, addListItem(newItem))
     expect(newState.listItems).toHaveLength(1)
@@ -101,15 +90,5 @@ describe('todoListSlice', () => {
       const newState = todoListReducer(state, setIsEditingListItem({ id: '1', isEditing: true }))
       expect(newState.listItems[0].isEditing).toBe(true)
     })
-
-    // it('handles getTodoById fulfilled action', () => {
-    //   const item: ListItemType = { id: '1', text: 'Test item', isChecked: false, isEditing: false }
-    //   console.log(12345, `${todoApi.reducerPath}/getTodoById/fulfilled`)
-
-    //   const action = { type: `${todoApi.reducerPath}/getTodoById/fulfilled`, payload: item }
-    //   const newState = todoListReducer(initialState, action)
-    //   expect(newState.listItems).toHaveLength(1)
-    //   expect(newState.listItems[0]).toEqual(item)
-    // })
   })
 })
