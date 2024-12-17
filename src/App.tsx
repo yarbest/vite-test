@@ -1,10 +1,11 @@
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import AuthProvider from './context/auth/AuthProvider'
 import Router from './routes/Router'
-import { store } from './store'
+import { persistor, store } from './store'
 
 function fallbackRender({ error }: FallbackProps) {
   // Call resetErrorBoundary() to reset the error boundary and retry the render.
@@ -25,11 +26,13 @@ function App() {
     <>
       <BrowserRouter>
         <Provider store={store}>
-          <ErrorBoundary fallbackRender={fallbackRender}>
-            <AuthProvider>
-              <Router />
-            </AuthProvider>
-          </ErrorBoundary>
+          <PersistGate loading={null} persistor={persistor}>
+            <ErrorBoundary fallbackRender={fallbackRender}>
+              <AuthProvider>
+                <Router />
+              </AuthProvider>
+            </ErrorBoundary>
+          </PersistGate>
         </Provider>
       </BrowserRouter>
     </>

@@ -3,23 +3,16 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { todoApi } from './todoService'
 
-import { EditListItemData, FilterType, ListItemType } from '../types'
+import { EditListItemData, ListItemType } from '../types'
 // import { fetchTodos } from './asyncActions'
 // import { todoApi } from './todoService'
 
 export interface TodoListState {
   listItems: ListItemType[]
-  filterType: FilterType
-  // taken from rtk query generated hook
-  // error?: string | null
-  isFetching: boolean
 }
 
 const initialState: TodoListState = {
   listItems: [],
-  filterType: FilterType.ALL,
-  // error: null,
-  isFetching: false,
 }
 
 export const todoListSlice = createSlice({

@@ -1,4 +1,5 @@
 import Button from './Button'
+import styles from './styles.module.scss'
 
 import { FilterType } from '../types'
 
@@ -8,7 +9,7 @@ interface FiltersProps {
 
 const Filters = ({ onFilterChange }: FiltersProps) => {
   return (
-    <div>
+    <div className={styles.filters}>
       <Button label="Show all" onClick={() => onFilterChange(FilterType.ALL)} />
       <Button label="Show active" onClick={() => onFilterChange(FilterType.ACTIVE)} />
       <Button label="Show completed" onClick={() => onFilterChange(FilterType.COMPLETED)} />
