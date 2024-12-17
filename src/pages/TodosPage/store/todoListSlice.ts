@@ -9,7 +9,7 @@ export interface TodoListState {
   listItems: ListItemType[]
 }
 
-const initialState: TodoListState = {
+export const initialState: TodoListState = {
   listItems: [],
 }
 
@@ -24,11 +24,11 @@ export const todoListSlice = createSlice({
       state.listItems.splice(state.listItems.findIndex(listItem => listItem.id === action.payload), 1)
     },
     editListItem: (state, action: PayloadAction<EditListItemData>) => {
-      const { id, text, isCheckChanged } = action.payload
+      const { id, text, isChecked } = action.payload
       const listItem = state.listItems.find(listItems => listItems.id === id)
       if (!listItem) return
       if (text) listItem.text = text
-      if (isCheckChanged) listItem.isChecked = !listItem.isChecked
+      if (isChecked) listItem.isChecked = !listItem.isChecked
     },
     setIsEditingListItem: (state, action: PayloadAction<{ id: string, isEditing: boolean }>) => {
       const listItem = state.listItems.find(listItems => listItems.id === action.payload.id)

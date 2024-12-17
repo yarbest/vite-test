@@ -20,7 +20,7 @@ export const useListItem = ({
   const navigate = useNavigate()
 
   const handleChecked = useCallback(() => {
-    editListItem({ id: listItem.id, isCheckChanged: true })
+    editListItem({ id: listItem.id, isChecked: true })
   }, [editListItem, listItem.id])
 
   const handleDeleteItemList = useCallback(() => {
@@ -133,12 +133,12 @@ export const useTodoList = () => {
     setListItems(prevListItems => prevListItems.filter(prevListItem => prevListItem.id !== id))
   }, [])
 
-  const editListItem = useCallback(({ id, text, isCheckChanged }: EditListItemData) => {
+  const editListItem = useCallback(({ id, text, isChecked: isCheckedUpdate }: EditListItemData) => {
     setListItems((prevListItems) => {
       return prevListItems.map(prevListItem => prevListItem.id === id
         ? {
             ...prevListItem,
-            isChecked: isCheckChanged ? !prevListItem.isChecked : prevListItem.isChecked,
+            isChecked: isCheckedUpdate !== prevListItem.isChecked ? !prevListItem.isChecked : prevListItem.isChecked,
             text: text ? text : prevListItem.text,
           }
         : prevListItem,

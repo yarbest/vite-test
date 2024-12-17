@@ -14,7 +14,7 @@ export interface TodoFromAPI {
 
 export type EditListItemData = Pick<ListItemType, 'id'> & {
   text?: string
-  isCheckChanged?: boolean
+  isChecked?: boolean
 }
 
 export enum FilterType {
