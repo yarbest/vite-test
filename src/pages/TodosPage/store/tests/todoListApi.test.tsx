@@ -2,8 +2,6 @@ import { act, renderHook, waitFor } from '@testing-library/react'
 import { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
-import { error } from 'console'
-
 import { TodoFromAPI } from '@pages/TodosPage/types'
 import { store } from 'src/store'
 
@@ -44,10 +42,11 @@ describe('todoListApi', () => {
       void triggerGetTodoById(todoId)
     })
 
-    rerender() // without rerender, we won't see the changes in the hook, so status will be still 'uninitialized'
+    rerender() // without rerender and act, we won't see the changes in the hook,
+    // so status will be still 'uninitialized', if there is 'act', rerender is not needed
     expect(result.current[1]).toMatchObject({
       status: 'pending',
-      isLoading: true,
+      isFetching: true,
     })
 
     // waiting for the fetch to be called
@@ -68,30 +67,21 @@ describe('todoListApi', () => {
 
   it('getTodoById - rejected (not found)', async () => {
     const todoId = 1
-    const mockDataFromApi: TodoFromAPI = {
-      userId: 1,
-      id: todoId,
-      title: '123',
-      completed: true,
-    }
-    fetchMock.mockOnceIf(`https://jsonplaceholder.typicode.com/todos/${todoId}`, () =>
-      Promise.resolve({
-        status: 404,
-        body: JSON.stringify(mockDataFromApi),
-      }),
-    )
+    fetchMock.mockResponse(() => Promise.resolve({ status: 404 }))
 
-    const { result, rerender } = renderHook(() => useLazyGetTodoByIdQuery(), {
+    const { result } = renderHook(() => useLazyGetTodoByIdQuery(), {
       wrapper,
     })
     const triggerGetTodoById = result.current[0]
     act(() => {
       void triggerGetTodoById(todoId)
     })
-    rerender()
+
     expect(result.current[1]).toMatchObject({
       status: 'pending',
-      isLoading: true,
+      isFetching: true,
+      // isLoading: true, // this is true only on ferst render, isFetching is true on every request
+      // there was 1 request in test "getTodoById - fulfilled" above, it's not first render, so isLoading is false here
     })
 
     await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1))
