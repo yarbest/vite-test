@@ -11,8 +11,8 @@ Example of usage:
 - Setup eslint configs with custom rules
 - Setup vite 
 - Automatic types generation for scss modules
-- Github Workflow for deployment and usage of environment-variables to detect PROD/DEV
+- Github Workflow for deployment/running-tests and usage of environment-variables to detect PROD/DEV
 
-## Deployment: [link](https://yarbest.github.io/vite-test/todos)
+## Deployment: [link](https://yarbest.github.io/vite-test/)
 
 
