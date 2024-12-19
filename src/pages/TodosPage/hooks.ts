@@ -60,10 +60,6 @@ export const useInputValue = () => {
   return { inputValue, handleChange, setInputValue }
 }
 
-interface FilterListItemsSearchParams {
-  filter: FilterType
-}
-
 /**
  * Custom hook to manage typed URL search parameters.
  * Pass your type as a generic parameter to get/set typed search parameters.
@@ -88,6 +84,10 @@ export const useTypedSearchParams = <T>() => {
   }, [searchParams, setSearchParams])
 
   return { getTypedSearchParams, setTypedSearchParam }
+}
+
+interface FilterListItemsSearchParams {
+  filter: FilterType
 }
 
 export const useFilterListItems = (listItems: ListItemType[]) => {
@@ -117,7 +117,9 @@ export const useFilterListItems = (listItems: ListItemType[]) => {
   }
 }
 
-// was replaced by store
+/***
+ * @deprecated was replaced by store
+ */
 export const useTodoList = () => {
   const [listItems, setListItems] = useState<ListItemType[]>([
     { text: 'Buy milk', isChecked: false, id: '1' },
