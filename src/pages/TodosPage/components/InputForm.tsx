@@ -19,6 +19,10 @@ interface InputFormPropsCommon {
   inputValue?: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   isFromApi?: boolean
+  testIds?: {
+    input: string
+    button: string
+  }
 }
 
 type InputFormProps = InputFormPropsCommon & (InputFormPropsEdit | InputFormPropsSubmit)
@@ -29,11 +33,20 @@ const InputForm = ({
   inputValue = '',
   isFromApi = false,
   onChange,
+  testIds,
 }: InputFormProps) => {
   return (
     <div className={classNames(styles.inputForm, { [styles.inputFormEditing]: isEditing })}>
-      <input type={isFromApi ? 'number' : 'text'} value={inputValue} onChange={onChange} />
-      {!isEditing && <Button label={isFromApi ? 'Add from api' : 'Add custom'} onClick={onAddListItem} />}
+      <input data-testid={testIds?.input} type={isFromApi ? 'number' : 'text'} value={inputValue} onChange={onChange} />
+      {!isEditing
+      && (
+        <Button
+          data-testid={testIds?.button}
+          label={isFromApi ? 'Add from api' : 'Add custom'}
+          onClick={onAddListItem}
+          testId={testIds?.button}
+        />
+      )}
     </div>
   )
 }
