@@ -40,7 +40,7 @@ const privateRoutes: RouteObject[] = [
     ),
   },
   {
-    path: '/',
+    path: paths.root,
     element: <Navigate to={paths.todos} replace />,
   },
   {
