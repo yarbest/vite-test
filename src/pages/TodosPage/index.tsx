@@ -59,6 +59,7 @@ const TodoList = () => {
         inputValue={searchTodoInputValue}
         onChange={handleChangeSearchTodoInputValue}
         isFromApi
+        testIds={{ input: 'search-input-form', button: 'search-button-form' }}
       />
 
       <InputForm
