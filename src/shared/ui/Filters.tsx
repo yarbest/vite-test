@@ -1,7 +1,7 @@
+import { FilterType } from '@shared/utils'
+
 import Button from './Button'
 import styles from './styles.module.scss'
-
-import { FilterType } from '../types'
 
 interface FiltersProps {
   onFilterChange: (filterType: FilterType) => void
