@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface AuthContextType {
+export interface AuthContextType {
   isLogin: boolean
   login: () => void
   logout: () => void

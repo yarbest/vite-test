@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 
-import { AuthContext } from 'src/context/auth/AuthContext'
+import { AuthContext } from '@context/auth'
 
 import { paths } from './paths'
 
