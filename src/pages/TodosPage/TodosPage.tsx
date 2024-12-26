@@ -1,19 +1,19 @@
 import { useCallback } from 'react'
 
+import { useInputValue } from '@shared/hooks'
+import { Filters, InputForm } from '@shared/ui'
+import { getErrorMessage } from '@shared/utils/api'
 import { useAppDispatch, useAppSelector } from 'src/store.ts'
 
-import Filters from './components/Filters'
-import InputForm from './components/InputForm'
 import ListItem from './components/ListItem'
-import { useFilterListItems, useInputValue } from './hooks'
+import { useFilterListItems } from './hooks'
 import { selectListItems } from './store/selectors'
 import { addListItem, deleteListItem, editListItem, setIsEditingListItem } from './store/todoListSlice'
 import { useLazyGetTodoByIdQuery } from './store/todoService'
-import styles from './TodoList.module.scss'
+import styles from './styles.module.scss'
 import { EditListItemData } from './types'
-import { getErrorMessage } from './utils'
 
-const TodoList = () => {
+const TodosPage = () => {
   const { inputValue, handleChange: handleChangeInputValue, setInputValue } = useInputValue()
   const {
     inputValue: searchTodoInputValue,
@@ -89,4 +89,4 @@ const TodoList = () => {
 //   throw new Error('Test error boundary')
 // }, [])
 
-export default TodoList
+export default TodosPage

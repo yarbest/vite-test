@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
-import TodoList from '@pages/TodosPage'
+import TodosPage from '@pages/TodosPage/TodosPage'
 import { store } from 'src/store'
 
 import { mockDataFromApi } from './mocks'
@@ -17,14 +17,14 @@ function wrapper({ children }: { children: ReactNode }) {
   )
 }
 
-describe('TodoList', () => {
+describe('TodosPage', () => {
   afterEach(() => {
     fetchMock.resetMocks()
   })
 
   it('should render fetched todo', async () => {
     render(
-      <TodoList />,
+      <TodosPage />,
       { wrapper },
     )
 
@@ -47,7 +47,7 @@ describe('TodoList', () => {
 
   it('should show error when fetching non existing todo', async () => {
     render(
-      <TodoList />,
+      <TodosPage />,
       { wrapper },
     )
 

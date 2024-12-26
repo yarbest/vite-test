@@ -1,0 +1,13 @@
+.list {
+  padding: 10px;
+}
+
+.listItem{
+  display: flex;
+  align-items: center;
+}
+
+.listItemText {
+  cursor: pointer;
+  margin-right: auto;
+}

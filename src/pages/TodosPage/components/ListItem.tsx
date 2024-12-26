@@ -1,9 +1,8 @@
-import Button from './Button'
-import Checkbox from './Checkbox'
-import InputForm from './InputForm'
-import styles from './styles.module.scss'
+import { useInputValue } from '@shared/hooks'
+import { Button, Checkbox, InputForm } from '@shared/ui'
 
-import { useInputValue, useListItem } from '../hooks'
+import { useListItem } from '../hooks'
+import styles from '../styles.module.scss'
 import { EditListItemData, ListItemType } from '../types'
 
 interface ListItemProps {
