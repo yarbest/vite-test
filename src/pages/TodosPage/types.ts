@@ -16,9 +16,3 @@ export type EditListItemData = Pick<ListItemType, 'id'> & {
   text?: string
   isChecked?: boolean
 }
-
-export enum FilterType {
-  ALL = 'ALL',
-  ACTIVE = 'ACTIVE',
-  COMPLETED = 'COMPLETED',
-}
