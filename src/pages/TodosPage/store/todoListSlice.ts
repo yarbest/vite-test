@@ -7,10 +7,12 @@ import { EditListItemData, ListItemType } from '../types'
 
 export interface TodoListState {
   listItems: ListItemType[]
+  error: string | null
 }
 
 export const initialState: TodoListState = {
   listItems: [],
+  error: null,
 }
 
 export const todoListSlice = createSlice({
@@ -39,7 +41,15 @@ export const todoListSlice = createSlice({
     // for rtk query. when we getTodoById, we need to add it to local todos, here we listen to action with type:
     // 'todoApi/executeQuery/fulfilled'
     builder.addMatcher(todoApi.endpoints.getTodoById.matchFulfilled, (state, action) => {
+      if (state.listItems.some(listItem => listItem.id === action.payload.id)) {
+        state.error = 'Item already exists'
+        return
+      }
       state.listItems.push(action.payload)
+      state.error = null
+    })
+    builder.addMatcher(todoApi.endpoints.getTodoById.matchPending, (state) => {
+      state.error = null
     })
   },
 })

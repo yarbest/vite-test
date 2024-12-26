@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'src/store.ts'
 
 import ListItem from './components/ListItem'
 import { useFilterListItems } from './hooks'
-import { selectListItems } from './store/selectors'
+import { selectError, selectListItems } from './store/selectors'
 import { addListItem, deleteListItem, editListItem, setIsEditingListItem } from './store/todoListSlice'
 import { useLazyGetTodoByIdQuery } from './store/todoService'
 import styles from './styles.module.scss'
@@ -22,24 +22,18 @@ const TodosPage = () => {
   } = useInputValue()
 
   const listItems = useAppSelector(selectListItems)
+  const error = useAppSelector(selectError)
   const dispatch = useAppDispatch()
 
   // useGetTodoByIdQuery - starts request right away, and on every render. useLazy - start, only when called
-  const [getTodoById, { error, isFetching }] = useLazyGetTodoByIdQuery()
+  const [getTodoById, { error: fetchingError, isFetching }] = useLazyGetTodoByIdQuery()
 
   const { filteredListItems, setFilterListType } = useFilterListItems(listItems)
 
   const handleSearchTodo = useCallback(() => {
-    // void dispatch(fetchTodos(Number(searchTodoInputValue))) // thunk. void - means that result of function
-    // is not used. fetchTodos is promise and TS wants to have .catch here, but it's alredy inside the function
-
+    if (!searchTodoInputValue) return
     void getTodoById(Number(searchTodoInputValue))
     setSearchTodoInputValue('')
-
-    // const newListItem = (await getTodoById(Number(searchTodoInputValue))).data
-    // a better option is to add fetched todo directly in extraReducers,
-    // cause here it makes function async, and can't pass to props
-    // if (newListItem) dispatch(addListItem(newListItem))
   }, [searchTodoInputValue, setSearchTodoInputValue, getTodoById])
 
   const handleAddCustomListItem = useCallback(() => {
@@ -50,7 +44,8 @@ const TodosPage = () => {
   return (
     <>
       <div>
-        {error && <span>{getErrorMessage(error)}</span>}
+        {fetchingError && <span>{getErrorMessage(fetchingError)}</span>}
+        {error && <span>{error}</span>}
         {isFetching && <span>Loading...</span>}
       </div>
 
