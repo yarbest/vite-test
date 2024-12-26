@@ -24,6 +24,9 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@containers': path.resolve(__dirname, 'src/containers'),
         '@pages': path.resolve(__dirname, 'src/pages'),
+        '@shared': path.resolve(__dirname, 'src/shared'),
+        '@routes': path.resolve(__dirname, 'src/routes'),
+        '@context': path.resolve(__dirname, 'src/context'),
         'src': path.resolve(__dirname, './src'), // so I can import like: from 'src/store'
       },
     },
