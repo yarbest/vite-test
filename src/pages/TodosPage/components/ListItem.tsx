@@ -33,7 +33,7 @@ const ListItem = ({ listItem, editListItem, deleteListItem, setIsEditingListItem
       {listItem.isEditing
         ? (
             <InputForm
-              isEditing
+              mode="edit"
               inputValue={inputValue}
               onChange={handleChangeInputValue}
             />

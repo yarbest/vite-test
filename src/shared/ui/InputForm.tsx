@@ -4,20 +4,20 @@ import React from 'react'
 import Button from './Button'
 import styles from './styles.module.scss'
 
-// Props overloading
-// This means, if isEditing is passed, then onAddListItem is prohibited
-// and vice versa, so only one of these props can be passed, everything from InputFormPropsCommon can be passed
+// Discriminated Union, if mode is 'add' then onAddListItem is required
+// and if mode is 'edit' then onAddListItem is prohibited BUT!!! it can't be destructured from porps
+// it can be used only when we have direct check for mode === 'add'
 interface InputFormPropsEdit {
-  isEditing: boolean
-  onAddListItem?: never
+  mode: 'edit'
 }
-interface InputFormPropsSubmit {
+
+interface InputFormPropsAdd {
+  mode: 'add'
   onAddListItem: () => void
-  isEditing?: never
 }
 interface InputFormPropsCommon {
-  inputValue?: string
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  inputValue: string
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   isFromApi?: boolean
   testIds?: {
     input: string
@@ -25,25 +25,20 @@ interface InputFormPropsCommon {
   }
 }
 
-type InputFormProps = InputFormPropsCommon & (InputFormPropsEdit | InputFormPropsSubmit)
+type InputFormProps = InputFormPropsCommon & (InputFormPropsEdit | InputFormPropsAdd)
 
-const InputForm = ({
-  onAddListItem = () => {},
-  isEditing = false,
-  inputValue = '',
-  isFromApi = false,
-  onChange,
-  testIds,
-}: InputFormProps) => {
+const InputForm = (props: InputFormProps) => {
+  const { mode, inputValue, onChange, testIds, isFromApi = false } = props
+
   return (
-    <div className={classNames(styles.inputForm, { [styles.inputFormEditing]: isEditing })}>
+    <div className={classNames(styles.inputForm, { [styles.inputFormEditing]: mode === 'edit' })}>
       <input data-testid={testIds?.input} type={isFromApi ? 'number' : 'text'} value={inputValue} onChange={onChange} />
-      {!isEditing
+      {mode === 'add'
       && (
         <Button
           data-testid={testIds?.button}
           label={isFromApi ? 'Add from api' : 'Add custom'}
-          onClick={onAddListItem}
+          onClick={props.onAddListItem}
           testId={testIds?.button}
         />
       )}

@@ -50,6 +50,7 @@ const TodosPage = () => {
       </div>
 
       <InputForm
+        mode="add"
         onAddListItem={handleSearchTodo}
         inputValue={searchTodoInputValue}
         onChange={handleChangeSearchTodoInputValue}
@@ -58,6 +59,7 @@ const TodosPage = () => {
       />
 
       <InputForm
+        mode="add"
         onAddListItem={handleAddCustomListItem}
         inputValue={inputValue}
         onChange={handleChangeInputValue}
