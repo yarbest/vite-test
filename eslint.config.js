@@ -7,6 +7,7 @@ import react from 'eslint-plugin-react';
 import importPlugin from 'eslint-plugin-import';
 
 import stylistic from '@stylistic/eslint-plugin'
+import boundaries from 'eslint-plugin-boundaries'
 
 
 
@@ -33,6 +34,7 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       import: importPlugin,
       '@stylistic': stylistic,
+      boundaries,
     },
     settings: {
       react: { version: '18.3' }, // or 'detect'
@@ -54,6 +56,13 @@ export default tseslint.config(
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
       },
+      'boundaries/elements': [
+        {
+          type: 'features',
+          pattern: 'src/features/*',
+          mode: 'folder'
+        }
+      ]
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -65,24 +74,35 @@ export default tseslint.config(
       ...stylistic.configs['recommended-extends'].rules,
 
       '@typescript-eslint/no-empty-function': 'off',
-      "@stylistic/max-len": ["error", { "code": 120 }],
-      "import/order":  [
+      '@stylistic/max-len': ['error', { 'code': 120 }],
+      'import/order':  [
           1, 
           {  
-            "groups": [ "external", "builtin", "internal", "sibling", "parent", "index" ], 
-            'newlines-between': "always",
+            'groups': [ 'external', 'builtin', 'internal', 'sibling', 'parent', 'index' ], 
+            'newlines-between': 'always',
             alphabetize: { order: 'asc', caseInsensitive: true },
           } 
-      ] 
+      ],
+      // prevents from importing features from other features
+      'boundaries/element-types': ['error', {
+        default: 'disallow',
+        message: 'Features should not import other features',
+        rules: [
+          {
+            from: 'features/*',
+            allow: ['features/*'],
+          }
+        ]
+      }]
     },
   },
   {
     // turns off specific rules for specific files
-    files: ["**/*.module.scss.d.ts"],
+    files: ['**/*.module.scss.d.ts'],
     rules: {
-        '@stylistic/quotes': "off",
-        '@stylistic/semi': "off",
-        '@stylistic/member-delimiter-style': "off",
+        '@stylistic/quotes': 'off',
+        '@stylistic/semi': 'off',
+        '@stylistic/member-delimiter-style': 'off',
     }
   }
 );
