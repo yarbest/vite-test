@@ -1,4 +1,3 @@
-import { useListItem } from './hooks'
-import type { ListItemType, TodoFromAPI, EditListItemData } from './types'
+import TodosPage from './TodosPage'
 
-export { ListItemType, TodoFromAPI, EditListItemData, useListItem }
+export default TodosPage

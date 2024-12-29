@@ -4,6 +4,7 @@
     "paths": {
       "@containers/*": ["src/containers/*"],
       "@pages/*": ["src/pages/*"],
+      "@features/*": ["src/features/*"],
       "@shared/*": ["src/shared/*"],
       "@context/*": ["src/context/*"],
       "@routes/*": ["src/routes/*"]

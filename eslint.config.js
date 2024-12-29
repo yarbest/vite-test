@@ -45,6 +45,7 @@ export default tseslint.config(
             ['', './public'], // allows to import from public folder: import viteLogo from '/vite.svg';
             ['@containers', './src/containers'], // so it doesn't give error when using alias described in tsconfig.json
             ['@pages', './src/pages'],
+            ['@features', './src/features'],
             ['@shared', './src/shared'],
             ['@context', './src/context'],
             ['@routes', './src/routes'],

@@ -1,8 +1,9 @@
 import { useInputValue } from '@shared/hooks'
 import { Button, Checkbox, InputForm } from '@shared/ui'
 
+import styles from './styles.module.scss'
+
 import { useListItem } from '../hooks'
-import styles from '../styles.module.scss'
 import { EditListItemData, ListItemType } from '../types'
 
 interface ListItemProps {

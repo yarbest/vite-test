@@ -1,6 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom'
 
-import { selectListItems } from '@pages/TodosPage/store/selectors'
+import { selectListItems } from 'src/features/TodoFeature/store/selectors'
 import { paths } from 'src/routes'
 import { useAppSelector } from 'src/store'
 

@@ -7,7 +7,7 @@ import { paths } from './paths'
 import PrivateRoute from './PrivateRoute'
 
 const TodoPage = LazyLoad(lazy(() => import('@pages/TodoPage/TodoPage')))
-const TodosPage = LazyLoad(lazy(() => import('@pages/TodosPage/TodosPage')))
+const TodosPage = LazyLoad(lazy(() => import('@features/TodoFeature/TodoFeature')))
 const LoginPage = LazyLoad(lazy(() => import('@pages/LoginPage/LoginPage')))
 
 const publicRoutes: RouteObject[] = [

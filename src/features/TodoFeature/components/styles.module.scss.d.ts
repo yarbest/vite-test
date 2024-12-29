@@ -1,6 +1,6 @@
 declare const classNames: {
-  readonly list: "list";
   readonly listItem: "listItem";
   readonly listItemText: "listItemText";
+  readonly list: "list";
 };
 export = classNames;
