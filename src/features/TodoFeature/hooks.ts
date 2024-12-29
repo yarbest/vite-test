@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { paths } from '@routes/index'
@@ -53,28 +53,26 @@ export const useListItem = ({
 }
 
 interface FilterListItemsSearchParams {
-  filter: FilterType
+  filterType: FilterType
 }
 
 export const useFilterListItems = (listItems: ListItemType[]) => {
   const { getTypedSearchParams, setTypedSearchParam } = useTypedSearchParams<FilterListItemsSearchParams>()
-  const { filter } = getTypedSearchParams()
+  const { filterType } = getTypedSearchParams()
 
-  let filteredListItems: ListItemType[]
+  const filteredListItems: ListItemType[] = useMemo(() => {
+    switch (filterType) {
+      case FilterType.ACTIVE:
+        return listItems.filter(listItem => !listItem.isChecked)
+      case FilterType.COMPLETED:
+        return listItems.filter(listItem => listItem.isChecked)
+      default:
+        return listItems
+    }
+  }, [filterType, listItems])
 
-  switch (filter) {
-    case FilterType.ACTIVE:
-      filteredListItems = listItems.filter(listItem => !listItem.isChecked)
-      break
-    case FilterType.COMPLETED:
-      filteredListItems = listItems.filter(listItem => listItem.isChecked)
-      break
-    default:
-      filteredListItems = listItems
-  }
-
-  const setFilterListType = useCallback((filter: FilterType) => {
-    setTypedSearchParam({ filter })
+  const setFilterListType = useCallback((filterType: FilterType) => {
+    setTypedSearchParam({ filterType })
   }, [setTypedSearchParam])
 
   return {
