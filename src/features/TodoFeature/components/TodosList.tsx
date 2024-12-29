@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+
 import { useAppDispatch } from 'src/store'
 
 import ListItem from './ListItem'
@@ -12,15 +14,29 @@ interface TodosListProps {
 
 const TodosList = ({ listItems }: TodosListProps) => {
   const dispatch = useAppDispatch()
+
+  const handleEditListItem = useCallback(
+    (editListItemData: EditListItemData) => dispatch(editListItem(editListItemData)),
+    [dispatch],
+  )
+  const handleDeleteListItem = useCallback(
+    (id: string) => dispatch(deleteListItem(id)),
+    [dispatch],
+  )
+  const handleSetIsEditingListItem = useCallback(
+    (id: string, isEditing: boolean) => dispatch(setIsEditingListItem({ id, isEditing })),
+    [dispatch],
+  )
+
   return (
     <ul className={styles.list}>
       {listItems.map(listItem => (
         <ListItem
           key={listItem.id}
           listItem={listItem}
-          editListItem={(editListItemData: EditListItemData) => dispatch(editListItem(editListItemData))}
-          deleteListItem={(id: string) => dispatch(deleteListItem(id))}
-          setIsEditingListItem={(id: string, isEditing: boolean) => dispatch(setIsEditingListItem({ id, isEditing }))}
+          editListItem={handleEditListItem}
+          deleteListItem={handleDeleteListItem}
+          setIsEditingListItem={handleSetIsEditingListItem}
         />
       ))}
     </ul>
