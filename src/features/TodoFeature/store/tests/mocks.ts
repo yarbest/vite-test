@@ -1,4 +1,4 @@
-import { TodoFromAPI } from 'src/features/TodoFeature/types'
+import type { TodoFromAPI } from '@features/TodoFeature/types'
 
 export const mockDataFromApi: TodoFromAPI = {
   userId: 1,

@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import { todoListReducer } from 'src/features/TodoFeature/store/todoListSlice'
-import { todoApi } from 'src/features/TodoFeature/store/todoService'
+import { todoListReducer, todoApi } from '@features/TodoFeature'
 
 const persistConfig = {
   key: 'root',
